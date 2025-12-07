@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Fluid Detailing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+
+        /* Header */
+        .dashboard-header {
+            background-color: #1a1a1a;
+            border-bottom: 2px solid #CC0000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-header h1 {
+            color: #CC0000;
+            font-size: 1.5rem;
+        }
+
+        .logout-btn {
+            background-color: #CC0000;
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: transparent;
+            border: 2px solid #CC0000;
+            color: #CC0000;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Back to Dashboard Button */
+        .back-btn {
+            background-color: #8a8d8f;
+            color: #ffffff;
+            border: 2px solid #8a8d8f;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background-color: transparent;
+            color: #8a8d8f;
+        }
+
+        /* Section Base Styles */
+        .dashboard-section {
+            background-color: #1a1a1a;
+            border: 2px solid #8a8d8f;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-section h2 {
+            color: #CC0000;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        /* Analytics Section */
+        .analytics-placeholder {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .analytics-placeholder p {
+            color: #b8b8b8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .generate-report-btn {
+            background-color: #4CAF50;
+            color: #ffffff;
+            border: 2px solid #4CAF50;
+            padding: 1rem 2.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .generate-report-btn:hover {
+            background-color: transparent;
+            color: #4CAF50;
+        }
+
+        /* Upcoming Bookings Preview */
+        .bookings-preview {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .booking-card-preview {
+            background-color: #0a0a0a;
+            border: 1px solid #8a8d8f;
+            border-radius: 8px;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .booking-card-preview:hover {
+            border-color: #CC0000;
+        }
+
+        .booking-card-preview h4 {
+            color: #CC0000;
+            margin-bottom: 0.3rem;
+        }
+
+        .booking-card-preview p {
+            color: #b8b8b8;
+            font-size: 0.85rem;
+            margin: 0.2rem 0;
+        }
+
+        .booking-status {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .booking-status.confirmed {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+
+        .booking-status.completed {
+            background-color: rgba(33, 150, 243, 0.2);
+            color: #2196F3;
+        }
+
+        .booking-status.cancelled {
+            background-color: rgba(204, 0, 0, 0.2);
+            color: #CC0000;
+        }
+
+        /* Button Grid (2x2) */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background-color: #1a1a1a;
+            border: 3px solid #8a8d8f;
+            border-radius: 10px;
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-button:hover {
+            border-color: #CC0000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(204, 0, 0, 0.3);
+        }
+
+        .nav-button i {
+            font-size: 3rem;
+            color: #CC0000;
+        }
+
+        .nav-button span {
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-card-preview {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .nav-button {
+                padding: 2rem 1rem;
+            }
+
+            .nav-button i {
+                font-size: 2rem;
+            }
+
+            .nav-button span {
+                font-size: 1.1rem;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.2rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        /* Upload Section */
+        .upload-area {
+            border: 3px dashed #8a8d8f;
+            border-radius: 10px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-area:hover {
+            border-color: #CC0000;
+            background-color: rgba(204, 0, 0, 0.05);
+        }
+
+        .upload-area.dragover {
+            border-color: #CC0000;
+            background-color: rgba(204, 0, 0, 0.1);
+        }
+
+        .upload-area i {
+            font-size: 3rem;
+            color: #8a8d8f;
+            margin-bottom: 1rem;
+        }
+
+        .upload-area p {
+            color: #b8b8b8;
+            font-size: 1.1rem;
+        }
+
+        .upload-area input[type="file"] {
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #b8b8b8;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #0a0a0a;
+            border: 1px solid #8a8d8f;
+            border-radius: 5px;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #CC0000;
+        }
+
+        .upload-btn {
+            background-color: #CC0000;
+            color: #ffffff;
+            border: 2px solid #CC0000;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-btn:hover {
+            background-color: transparent;
+            color: #CC0000;
+        }
+
+        .upload-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            background-color: #0a0a0a;
+            border: 1px solid #8a8d8f;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            border-color: #CC0000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(204, 0, 0, 0.3);
+        }
+
+        .gallery-item img,
+        .gallery-item video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item-info {
+            padding: 1rem;
+        }
+
+        .gallery-item-info p {
+            color: #b8b8b8;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-item-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .delete-btn {
+            flex: 1;
+            background-color: #CC0000;
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .delete-btn:hover {
+            background-color: #a30000;
+        }
+
+        /* Messages */
+        .message {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .message.success {
+            background-color: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
+        }
+
+        .message.error {
+            background-color: rgba(204, 0, 0, 0.2);
+            border: 1px solid #CC0000;
+            color: #CC0000;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid #1a1a1a;
+            border-top: 3px solid #CC0000;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            color: #8a8d8f;
+        }
+
+        /* Full Bookings Management */
+        .filter-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-btn {
+            background-color: #0a0a0a;
+            color: #b8b8b8;
+            border: 2px solid #8a8d8f;
+            padding: 0.6rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            border-color: #CC0000;
+            color: #CC0000;
+        }
+
+        .filter-btn.active {
+            background-color: #CC0000;
+            border-color: #CC0000;
+            color: #ffffff;
+        }
+
+        .bookings-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .booking-card {
+            background-color: #0a0a0a;
+            border: 2px solid #8a8d8f;
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr 200px;
+            gap: 1.5rem;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .booking-card:hover {
+            border-color: #CC0000;
+        }
+
+        .booking-info h4 {
+            color: #CC0000;
+            margin-bottom: 0.5rem;
+        }
+
+        .booking-info p {
+            color: #b8b8b8;
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+        }
+
+        .booking-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.6rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .action-btn.complete {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .action-btn.cancel {
+            background-color: #CC0000;
+            color: white;
+        }
+
+        .action-btn.paid {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .action-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* Services Management */
+        .services-management {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .service-row {
+            background-color: #0a0a0a;
+            border: 1px solid #8a8d8f;
+            border-radius: 8px;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 100px 100px;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .service-row.new-service {
+            border-color: #4CAF50;
+            background-color: rgba(76, 175, 80, 0.05);
+        }
+
+        .service-row input,
+        .service-row select {
+            background-color: #1a1a1a;
+            color: white;
+            border: 1px solid #8a8d8f;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .service-row button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .service-row button.save {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Business Hours */
+        .business-hours-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .hours-row {
+            background-color: #0a0a0a;
+            border: 1px solid #8a8d8f;
+            border-radius: 8px;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: 150px 100px 150px 150px;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .hours-row label {
+            font-weight: bold;
+            color: #CC0000;
+        }
+
+        .hours-row input[type="time"],
+        .hours-row input[type="checkbox"] {
+            background-color: #1a1a1a;
+            color: white;
+            border: 1px solid #8a8d8f;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .hours-row input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* Hide sections */
+        .hidden {
+            display: none !important;
+        }
+
+        /* AI Assistant Chat Styles */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            background-color: #0a0a0a;
+            border: 2px solid #8a8d8f;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            max-width: 85%;
+        }
+
+        .chat-message.user {
+            align-self: flex-end;
+            background-color: #CC0000;
+            flex-direction: row-reverse;
+        }
+
+        .chat-message.assistant {
+            align-self: flex-start;
+            background-color: #1a1a1a;
+            border: 1px solid #8a8d8f;
+        }
+
+        .chat-message-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+
+        .chat-message.user .chat-message-icon {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chat-message.assistant .chat-message-icon {
+            background-color: #4CAF50;
+        }
+
+        .chat-message-content {
+            flex: 1;
+        }
+
+        .chat-message-content p {
+            margin: 0;
+            line-height: 1.5;
+            color: #ffffff;
+        }
+
+        .chat-message-time {
+            font-size: 0.75rem;
+            color: #8a8d8f;
+            margin-top: 0.5rem;
+        }
+
+        .chat-input-container {
+            padding: 1.5rem;
+            background-color: #1a1a1a;
+            border-top: 2px solid #8a8d8f;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 1rem;
+            background-color: #0a0a0a;
+            border: 1px solid #8a8d8f;
+            border-radius: 5px;
+            color: #ffffff;
+            font-size: 1rem;
+            resize: none;
+            font-family: inherit;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #CC0000;
+        }
+
+        .chat-send-btn {
+            background-color: #4CAF50;
+            color: #ffffff;
+            border: 2px solid #4CAF50;
+            padding: 0 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .chat-send-btn:hover {
+            background-color: transparent;
+            color: #4CAF50;
+        }
+
+        .chat-send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .suggested-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .suggested-question {
+            background-color: #1a1a1a;
+            border: 1px solid #8a8d8f;
+            color: #b8b8b8;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .suggested-question:hover {
+            border-color: #4CAF50;
+            color: #4CAF50;
+        }
+
+        .chat-loading {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #8a8d8f;
+            padding: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .booking-card {
+                grid-template-columns: 1fr;
+            }
+
+            .service-row {
+                grid-template-columns: 1fr;
+            }
+
+            .hours-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .chat-container {
+                height: 500px;
+            }
+
+            .chat-message {
+                max-width: 95%;
+            }
+
+            .suggested-questions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="dashboard-header">
+        <h1><i class="fas fa-car"></i> Fluid Detailing - Admin Dashboard</h1>
+        <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Back to Dashboard Button (Hidden by default) -->
+        <button class="back-btn hidden" id="backBtn" onclick="showMainDashboard()">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </button>
+
+        <!-- Main Dashboard View -->
+        <div id="mainDashboardView">
+            <!-- Analytics Section -->
+            <div class="dashboard-section">
+                <h2><i class="fas fa-chart-line"></i> Analytics</h2>
+                <div class="analytics-placeholder">
+                    <p>Analytics reports and insights will be available here in the future.</p>
+                    <button class="generate-report-btn" disabled>
+                        <i class="fas fa-file-chart-line"></i> Generate Report (Coming Soon)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Upcoming Bookings Preview (Next 5) -->
+            <div class="dashboard-section">
+                <h2><i class="fas fa-calendar-check"></i> Upcoming Bookings</h2>
+                <div class="bookings-preview" id="bookingsPreview">
+                    <!-- Preview bookings will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Button Grid (2x2 + AI Assistant) -->
+            <div class="button-grid">
+                <div class="nav-button" onclick="showSection('imageUpload')">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Image Upload</span>
+                </div>
+
+                <div class="nav-button" onclick="showSection('manageServices')">
+                    <i class="fas fa-cogs"></i>
+                    <span>Manage Services</span>
+                </div>
+
+                <div class="nav-button" onclick="showSection('businessHours')">
+                    <i class="fas fa-clock"></i>
+                    <span>Business Hours</span>
+                </div>
+
+                <div class="nav-button" onclick="showSection('viewAllBookings')">
+                    <i class="fas fa-list"></i>
+                    <span>View All Bookings</span>
+                </div>
+
+                <div class="nav-button" onclick="showSection('aiAssistant')" style="grid-column: 1 / -1; border-color: #4CAF50;">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Business Assistant</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Upload Section -->
+        <div id="imageUploadSection" class="hidden">
+            <div class="dashboard-section">
+                <h2><i class="fas fa-cloud-upload-alt"></i> Upload to Gallery</h2>
+
+                <div id="uploadMessage" class="message"></div>
+
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-images"></i>
+                    <p>Drag & drop files here or click to browse</p>
+                    <p style="font-size: 0.9rem; color: #8a8d8f; margin-top: 0.5rem;">
+                        Supported: JPG, PNG, GIF, MP4, MOV, AVI, WEBM (Max 50MB)
+                    </p>
+                    <input type="file" id="fileInput" accept="image/*,video/*" multiple>
+                </div>
+
+                <div class="form-group">
+                    <label for="caption">Caption (Optional)</label>
+                    <input type="text" id="caption" placeholder="Enter caption for the image/video">
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category">
+                        <option value="general">General</option>
+                        <option value="interior">Interior Detailing</option>
+                        <option value="exterior">Exterior Detailing</option>
+                        <option value="ceramic">Ceramic Coating</option>
+                        <option value="paint">Paint Correction</option>
+                        <option value="before-after">Before & After</option>
+                    </select>
+                </div>
+
+                <button class="upload-btn" id="uploadBtn" onclick="uploadFiles()">
+                    <i class="fas fa-upload"></i> Upload Files
+                </button>
+            </div>
+
+            <!-- Gallery Section -->
+            <div class="dashboard-section">
+                <h2><i class="fas fa-images"></i> Current Gallery</h2>
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Loading gallery...</p>
+                </div>
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- Gallery items will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Services Section -->
+        <div id="manageServicesSection" class="hidden">
+            <div class="dashboard-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2 style="margin: 0;"><i class="fas fa-cogs"></i> Manage Services</h2>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="upload-btn" onclick="addNewService()" style="width: auto; padding: 0.8rem 2rem; background-color: #4CAF50; border-color: #4CAF50;">
+                            <i class="fas fa-plus"></i> Add Service
+                        </button>
+                        <button class="upload-btn" onclick="syncAllServices()" style="width: auto; padding: 0.8rem 2rem;">
+                            <i class="fas fa-sync-alt"></i> Sync All Changes
+                        </button>
+                    </div>
+                </div>
+
+                <div id="servicesMessage" class="message"></div>
+
+                <div class="service-row" style="background-color: #CC0000; font-weight: bold; margin-bottom: 0.5rem;">
+                    <div>Service Name</div>
+                    <div>Duration (min)</div>
+                    <div>Price ($)</div>
+                    <div>Status</div>
+                    <div>Actions</div>
+                </div>
+
+                <div id="servicesGrid" class="services-management">
+                    <!-- Services will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Business Hours Section -->
+        <div id="businessHoursSection" class="hidden">
+            <div class="dashboard-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2 style="margin: 0;"><i class="fas fa-clock"></i> Business Hours</h2>
+                    <button class="upload-btn" onclick="syncAllBusinessHours()" style="width: auto; padding: 0.8rem 2rem;">
+                        <i class="fas fa-sync-alt"></i> Sync All Changes
+                    </button>
+                </div>
+
+                <div id="hoursMessage" class="message"></div>
+
+                <div id="businessHoursGrid" class="business-hours-grid">
+                    <!-- Business hours will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- View All Bookings Section -->
+        <div id="viewAllBookingsSection" class="hidden">
+            <div class="dashboard-section">
+                <h2><i class="fas fa-calendar-check"></i> All Bookings</h2>
+
+                <div class="filter-options">
+                    <button class="filter-btn active" onclick="filterBookings('all')">All</button>
+                    <button class="filter-btn" onclick="filterBookings('confirmed')">Confirmed</button>
+                    <button class="filter-btn" onclick="filterBookings('completed')">Completed</button>
+                    <button class="filter-btn" onclick="filterBookings('cancelled')">Cancelled</button>
+                </div>
+
+                <div id="bookingsMessage" class="message"></div>
+
+                <div class="bookings-grid" id="bookingsGrid">
+                    <!-- Bookings will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Assistant Section -->
+        <div id="aiAssistantSection" class="hidden">
+            <div class="dashboard-section">
+                <h2><i class="fas fa-robot"></i> AI Business Assistant</h2>
+                <p style="color: #b8b8b8; margin-bottom: 1.5rem;">
+                    Ask questions about your business data, revenue, bookings, and service performance.
+                    The AI has access to your complete business information.
+                </p>
+
+                <!-- Suggested Questions -->
+                <div class="suggested-questions">
+                    <div class="suggested-question" onclick="askSuggestedQuestion('Give me business insights and recommendations')">
+                        💡 Business Insights & Recommendations
+                    </div>
+                    <div class="suggested-question" onclick="askSuggestedQuestion('What are my growth opportunities?')">
+                        📈 Growth Opportunities
+                    </div>
+                    <div class="suggested-question" onclick="askSuggestedQuestion('How is my customer retention?')">
+                        👥 Customer Retention Analysis
+                    </div>
+                    <div class="suggested-question" onclick="askSuggestedQuestion('Generate a customers report')">
+                        📊 Customer Report (CSV)
+                    </div>
+                    <div class="suggested-question" onclick="askSuggestedQuestion('Generate a newsletter about spring cleaning special - 20% off all services')">
+                        ✉️ Create Newsletter (example)
+                    </div>
+                    <div class="suggested-question" onclick="askSuggestedQuestion('Show me who my best customers are')">
+                        ⭐ Top Customers
+                    </div>
+                </div>
+
+                <!-- Chat Container -->
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-message assistant">
+                            <div class="chat-message-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="chat-message-content">
+                                <p>Hello! I'm your AI business assistant and strategic advisor. I can:</p>
+                                <p><strong>📊 Analyze & Advise:</strong><br>
+                                • Provide business insights and growth recommendations<br>
+                                • Analyze customer retention and behavior<br>
+                                • Identify revenue opportunities</p>
+                                <p><strong>⚡ Take Actions:</strong><br>
+                                • Block dates, update prices, generate reports<br>
+                                • View customer history and booking patterns<br>
+                                • Create newsletters and promotional content</p>
+                                <p>What would you like to know or do?</p>
+                                <div class="chat-message-time">Just now</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-container">
+                        <textarea
+                            id="chatInput"
+                            class="chat-input"
+                            placeholder="Ask me anything about your business..."
+                            rows="2"
+                            onkeypress="handleChatKeyPress(event)"
+                        ></textarea>
+                        <button class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()">
+                            <i class="fas fa-paper-plane"></i> Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedFiles = [];
+        let allBookings = [];
+        let currentFilter = 'all';
+
+        // Check authentication on page load
+        window.addEventListener('load', async () => {
+            try {
+                const response = await fetch('/api/admin/check-auth');
+                if (!response.ok) {
+                    window.location.href = '/admin';
+                }
+            } catch (error) {
+                window.location.href = '/admin';
+            }
+
+            // Load initial data
+            loadBookings();
+            loadServices();
+            loadBusinessHours();
+        });
+
+        // Navigation functions
+        function showSection(sectionName) {
+            // Hide main dashboard
+            document.getElementById('mainDashboardView').classList.add('hidden');
+
+            // Hide all sections
+            document.getElementById('imageUploadSection').classList.add('hidden');
+            document.getElementById('manageServicesSection').classList.add('hidden');
+            document.getElementById('businessHoursSection').classList.add('hidden');
+            document.getElementById('viewAllBookingsSection').classList.add('hidden');
+            document.getElementById('aiAssistantSection').classList.add('hidden');
+
+            // Show selected section
+            const sectionMap = {
+                'imageUpload': 'imageUploadSection',
+                'manageServices': 'manageServicesSection',
+                'businessHours': 'businessHoursSection',
+                'viewAllBookings': 'viewAllBookingsSection',
+                'aiAssistant': 'aiAssistantSection'
+            };
+
+            document.getElementById(sectionMap[sectionName]).classList.remove('hidden');
+            document.getElementById('backBtn').classList.remove('hidden');
+
+            // Load gallery if showing image upload
+            if (sectionName === 'imageUpload') {
+                loadGallery();
+            }
+        }
+
+        function showMainDashboard() {
+            // Show main dashboard
+            document.getElementById('mainDashboardView').classList.remove('hidden');
+
+            // Hide all sections
+            document.getElementById('imageUploadSection').classList.add('hidden');
+            document.getElementById('manageServicesSection').classList.add('hidden');
+            document.getElementById('businessHoursSection').classList.add('hidden');
+            document.getElementById('viewAllBookingsSection').classList.add('hidden');
+            document.getElementById('aiAssistantSection').classList.add('hidden');
+
+            // Hide back button
+            document.getElementById('backBtn').classList.add('hidden');
+
+            // Refresh bookings preview
+            loadBookings();
+        }
+
+        // Logout function
+        async function logout() {
+            try {
+                await fetch('/api/admin/logout', { method: 'POST' });
+                window.location.href = '/admin';
+            } catch (error) {
+                console.error('Logout error:', error);
+                window.location.href = '/admin';
+            }
+        }
+
+        // ============================================
+        // BOOKINGS MANAGEMENT
+        // ============================================
+
+        async function loadBookings() {
+            try {
+                const response = await fetch('/api/admin/bookings');
+                allBookings = await response.json();
+
+                // Sort by date/time (upcoming first)
+                allBookings.sort((a, b) => {
+                    const dateA = new Date(a.booking_date + 'T' + a.booking_time);
+                    const dateB = new Date(b.booking_date + 'T' + b.booking_time);
+                    return dateA - dateB;
+                });
+
+                renderBookingsPreview();
+                renderBookings();
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+            }
+        }
+
+        function renderBookingsPreview() {
+            const preview = document.getElementById('bookingsPreview');
+            const upcomingBookings = allBookings
+                .filter(b => b.status === 'confirmed')
+                .slice(0, 5);
+
+            if (upcomingBookings.length === 0) {
+                preview.innerHTML = '<p style="color: #8a8d8f; text-align: center; padding: 2rem;">No upcoming bookings</p>';
+                return;
+            }
+
+            preview.innerHTML = upcomingBookings.map(booking => `
+                <div class="booking-card-preview">
+                    <div>
+                        <h4>${booking.customer_name}</h4>
+                        <p><i class="fas fa-envelope"></i> ${booking.customer_email}</p>
+                        <p><i class="fas fa-phone"></i> ${booking.customer_phone}</p>
+                    </div>
+                    <div>
+                        <p><i class="fas fa-calendar"></i> ${new Date(booking.booking_date).toLocaleDateString()}</p>
+                        <p><i class="fas fa-clock"></i> ${formatTime(booking.booking_time)}</p>
+                        <p><i class="fas fa-dollar-sign"></i> $${parseFloat(booking.total_price).toFixed(2)}</p>
+                    </div>
+                    <div class="booking-status ${booking.status}">${booking.status.toUpperCase()}</div>
+                </div>
+            `).join('');
+        }
+
+        function filterBookings(status) {
+            currentFilter = status;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderBookings();
+        }
+
+        function renderBookings() {
+            const filtered = currentFilter === 'all'
+                ? allBookings
+                : allBookings.filter(b => b.status === currentFilter);
+
+            const bookingsGrid = document.getElementById('bookingsGrid');
+
+            if (filtered.length === 0) {
+                bookingsGrid.innerHTML = '<p style="color: #8a8d8f; text-align: center; padding: 2rem;">No bookings found</p>';
+                return;
+            }
+
+            bookingsGrid.innerHTML = filtered.map(booking => `
+                <div class="booking-card">
+                    <div class="booking-info">
+                        <h4>${booking.customer_name}</h4>
+                        <p><i class="fas fa-envelope"></i> ${booking.customer_email}</p>
+                        <p><i class="fas fa-phone"></i> ${booking.customer_phone}</p>
+                        <p><i class="fas fa-sticky-note"></i> ${booking.notes || 'No notes'}</p>
+                    </div>
+                    <div class="booking-info">
+                        <p><i class="fas fa-calendar"></i> <strong>${new Date(booking.booking_date).toLocaleDateString()}</strong></p>
+                        <p><i class="fas fa-clock"></i> ${formatTime(booking.booking_time)}</p>
+                        <p><i class="fas fa-hourglass"></i> ${booking.total_duration} minutes</p>
+                        <p><i class="fas fa-dollar-sign"></i> $${parseFloat(booking.total_price).toFixed(2)}</p>
+                        <p><strong>Payment:</strong> ${booking.payment_method} (${booking.payment_status})</p>
+                    </div>
+                    <div class="booking-actions">
+                        <div class="booking-status ${booking.status}">${booking.status.toUpperCase()}</div>
+                        ${booking.status === 'confirmed' ? `
+                            <button class="action-btn complete" onclick="updateBookingStatus(${booking.id}, 'completed')">
+                                <i class="fas fa-check"></i> Complete
+                            </button>
+                            <button class="action-btn cancel" onclick="updateBookingStatus(${booking.id}, 'cancelled')">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        ` : ''}
+                        ${booking.payment_status === 'pending' ? `
+                            <button class="action-btn paid" onclick="updatePaymentStatus(${booking.id}, 'paid')">
+                                <i class="fas fa-money-bill"></i> Mark Paid
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function formatTime(time) {
+            const [hours, minutes] = time.split(':');
+            const hour = parseInt(hours);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour % 12 || 12;
+            return `${displayHour}:${minutes} ${ampm}`;
+        }
+
+        async function updateBookingStatus(id, status) {
+            try {
+                const response = await fetch(`/api/admin/bookings/${id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+
+                if (response.ok) {
+                    showMessageInSection('bookingsMessage', `Booking ${status}`, 'success');
+                    loadBookings();
+                } else {
+                    throw new Error('Update failed');
+                }
+            } catch (error) {
+                showMessageInSection('bookingsMessage', 'Failed to update booking', 'error');
+            }
+        }
+
+        async function updatePaymentStatus(id, payment_status) {
+            try {
+                const response = await fetch(`/api/admin/bookings/${id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ payment_status })
+                });
+
+                if (response.ok) {
+                    showMessageInSection('bookingsMessage', 'Payment status updated', 'success');
+                    loadBookings();
+                } else {
+                    throw new Error('Update failed');
+                }
+            } catch (error) {
+                showMessageInSection('bookingsMessage', 'Failed to update payment status', 'error');
+            }
+        }
+
+        // ============================================
+        // SERVICES MANAGEMENT
+        // ============================================
+
+        async function loadServices() {
+            try {
+                const response = await fetch('/api/admin/services');
+                const services = await response.json();
+                renderServices(services);
+            } catch (error) {
+                console.error('Error loading services:', error);
+            }
+        }
+
+        let newServiceCounter = 0;
+
+        function renderServices(services) {
+            const grid = document.getElementById('servicesGrid');
+            grid.innerHTML = services.map(service => `
+                <div class="service-row" data-service-id="${service.id}">
+                    <input type="text" value="${service.name}" id="name-${service.id}" placeholder="Service Name">
+                    <input type="number" value="${service.duration_minutes}" id="duration-${service.id}" placeholder="Duration (min)">
+                    <input type="number" step="0.01" value="${service.price || ''}" id="price-${service.id}" placeholder="Price">
+                    <select id="active-${service.id}">
+                        <option value="true" ${service.is_active ? 'selected' : ''}>Active</option>
+                        <option value="false" ${!service.is_active ? 'selected' : ''}>Inactive</option>
+                    </select>
+                    <button class="delete-btn" onclick="deleteService(${service.id})">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function addNewService() {
+            const grid = document.getElementById('servicesGrid');
+            const tempId = `new-${newServiceCounter++}`;
+
+            const newServiceRow = document.createElement('div');
+            newServiceRow.className = 'service-row new-service';
+            newServiceRow.setAttribute('data-new-service-id', tempId);
+            newServiceRow.innerHTML = `
+                <input type="text" id="name-${tempId}" placeholder="New Service Name" required>
+                <input type="number" id="duration-${tempId}" placeholder="Duration (min)" value="60" required>
+                <input type="number" step="0.01" id="price-${tempId}" placeholder="Price" value="0">
+                <select id="active-${tempId}">
+                    <option value="true" selected>Active</option>
+                    <option value="false">Inactive</option>
+                </select>
+                <button class="delete-btn" onclick="removeNewService('${tempId}')">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            `;
+
+            grid.insertBefore(newServiceRow, grid.firstChild);
+        }
+
+        function removeNewService(tempId) {
+            const row = document.querySelector(`[data-new-service-id="${tempId}"]`);
+            if (row) row.remove();
+        }
+
+        async function deleteService(id) {
+            if (!confirm('Are you sure you want to delete this service?')) return;
+
+            try {
+                const response = await fetch(`/api/admin/services/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    showMessageInSection('servicesMessage', 'Service deleted successfully', 'success');
+                    loadServices();
+                } else {
+                    throw new Error('Delete failed');
+                }
+            } catch (error) {
+                showMessageInSection('servicesMessage', 'Failed to delete service', 'error');
+            }
+        }
+
+        async function syncAllServices() {
+            const existingRows = document.querySelectorAll('.service-row[data-service-id]');
+            const newRows = document.querySelectorAll('.service-row[data-new-service-id]');
+            const updates = [];
+
+            // Update existing services
+            for (const row of existingRows) {
+                const id = row.getAttribute('data-service-id');
+                const data = {
+                    name: document.getElementById(`name-${id}`).value,
+                    duration_minutes: parseInt(document.getElementById(`duration-${id}`).value),
+                    price: parseFloat(document.getElementById(`price-${id}`).value) || null,
+                    is_active: document.getElementById(`active-${id}`).value === 'true'
+                };
+                updates.push(updateServiceAPI(id, data));
+            }
+
+            // Create new services
+            for (const row of newRows) {
+                const tempId = row.getAttribute('data-new-service-id');
+                const data = {
+                    name: document.getElementById(`name-${tempId}`).value,
+                    duration_minutes: parseInt(document.getElementById(`duration-${tempId}`).value),
+                    price: parseFloat(document.getElementById(`price-${tempId}`).value) || null,
+                    show_price: true,
+                    is_active: document.getElementById(`active-${tempId}`).value === 'true'
+                };
+
+                if (!data.name || !data.duration_minutes) {
+                    showMessageInSection('servicesMessage', 'Please fill in all required fields for new services', 'error');
+                    return;
+                }
+
+                updates.push(createServiceAPI(data));
+            }
+
+            try {
+                await Promise.all(updates);
+                showMessageInSection('servicesMessage', 'All services synced successfully!', 'success');
+                loadServices();
+            } catch (error) {
+                showMessageInSection('servicesMessage', 'Failed to sync some services', 'error');
+            }
+        }
+
+        async function createServiceAPI(data) {
+            const response = await fetch('/api/admin/services', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (!response.ok) throw new Error('Create failed');
+            return response.json();
+        }
+
+        async function updateServiceAPI(id, data) {
+            const response = await fetch(`/api/admin/services/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (!response.ok) throw new Error('Update failed');
+            return response.json();
+        }
+
+        // ============================================
+        // BUSINESS HOURS MANAGEMENT
+        // ============================================
+
+        async function loadBusinessHours() {
+            try {
+                const response = await fetch('/api/business-hours');
+                const hours = await response.json();
+                renderBusinessHours(hours);
+            } catch (error) {
+                console.error('Error loading business hours:', error);
+            }
+        }
+
+        function renderBusinessHours(hours) {
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const grid = document.getElementById('businessHoursGrid');
+
+            grid.innerHTML = hours.map(hour => `
+                <div class="hours-row" data-day="${hour.day_of_week}">
+                    <label>${days[hour.day_of_week]}</label>
+                    <input type="checkbox" id="open-${hour.day_of_week}" ${hour.is_open ? 'checked' : ''}
+                           onchange="toggleDay(${hour.day_of_week})">
+                    <input type="time" id="open-time-${hour.day_of_week}" value="${hour.open_time || '09:00'}"
+                           ${!hour.is_open ? 'disabled' : ''}>
+                    <input type="time" id="close-time-${hour.day_of_week}" value="${hour.close_time || '17:00'}"
+                           ${!hour.is_open ? 'disabled' : ''}>
+                </div>
+            `).join('');
+        }
+
+        function toggleDay(day) {
+            const isOpen = document.getElementById(`open-${day}`).checked;
+            document.getElementById(`open-time-${day}`).disabled = !isOpen;
+            document.getElementById(`close-time-${day}`).disabled = !isOpen;
+        }
+
+        async function syncAllBusinessHours() {
+            const hoursRows = document.querySelectorAll('.hours-row[data-day]');
+            const updates = [];
+
+            for (const row of hoursRows) {
+                const day = row.getAttribute('data-day');
+                const isOpen = document.getElementById(`open-${day}`).checked;
+                const data = {
+                    is_open: isOpen,
+                    open_time: isOpen ? document.getElementById(`open-time-${day}`).value : null,
+                    close_time: isOpen ? document.getElementById(`close-time-${day}`).value : null
+                };
+                updates.push(updateBusinessHoursAPI(day, data));
+            }
+
+            try {
+                await Promise.all(updates);
+                showMessageInSection('hoursMessage', 'All business hours synced successfully!', 'success');
+            } catch (error) {
+                showMessageInSection('hoursMessage', 'Failed to sync some business hours', 'error');
+            }
+        }
+
+        async function updateBusinessHoursAPI(day, data) {
+            const response = await fetch(`/api/admin/business-hours/${day}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (!response.ok) throw new Error('Update failed');
+            return response.json();
+        }
+
+        // ============================================
+        // IMAGE UPLOAD & GALLERY
+        // ============================================
+
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = Array.from(e.dataTransfer.files);
+            handleFiles(files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            handleFiles(files);
+        });
+
+        function handleFiles(files) {
+            selectedFiles = files;
+            showMessageInSection('uploadMessage', `${files.length} file(s) selected`, 'success');
+        }
+
+        async function uploadFiles() {
+            if (selectedFiles.length === 0) {
+                showMessageInSection('uploadMessage', 'Please select files to upload', 'error');
+                return;
+            }
+
+            const uploadBtn = document.getElementById('uploadBtn');
+            const caption = document.getElementById('caption').value;
+            const category = document.getElementById('category').value;
+
+            uploadBtn.disabled = true;
+            uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+
+            try {
+                for (const file of selectedFiles) {
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    formData.append('caption', caption);
+                    formData.append('category', category);
+
+                    const response = await fetch('/api/admin/gallery/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Failed to upload ${file.name}`);
+                    }
+                }
+
+                showMessageInSection('uploadMessage', `Successfully uploaded ${selectedFiles.length} file(s)`, 'success');
+                selectedFiles = [];
+                fileInput.value = '';
+                document.getElementById('caption').value = '';
+                loadGallery();
+            } catch (error) {
+                showMessageInSection('uploadMessage', 'Upload failed: ' + error.message, 'error');
+            } finally {
+                uploadBtn.disabled = false;
+                uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Files';
+            }
+        }
+
+        async function loadGallery() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            const loading = document.getElementById('loading');
+
+            loading.style.display = 'block';
+            galleryGrid.innerHTML = '';
+
+            try {
+                const response = await fetch('/api/gallery');
+                const items = await response.json();
+
+                if (items.length === 0) {
+                    galleryGrid.innerHTML = '<p style="color: #8a8d8f; text-align: center; padding: 2rem;">No gallery items yet. Upload your first image or video!</p>';
+                } else {
+                    items.forEach(item => {
+                        const itemDiv = createGalleryItem(item);
+                        galleryGrid.appendChild(itemDiv);
+                    });
+                }
+            } catch (error) {
+                showMessageInSection('uploadMessage', 'Failed to load gallery', 'error');
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function createGalleryItem(item) {
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
+
+            const mediaUrl = `/gallery/${item.filename}`;
+            let mediaHtml = '';
+
+            if (item.file_type === 'video') {
+                mediaHtml = `<video src="${mediaUrl}" controls></video>`;
+            } else {
+                mediaHtml = `<img src="${mediaUrl}" alt="${item.caption || 'Gallery item'}">`;
+            }
+
+            div.innerHTML = `
+                ${mediaHtml}
+                <div class="gallery-item-info">
+                    <p><strong>Type:</strong> ${item.file_type}</p>
+                    <p><strong>Category:</strong> ${item.category}</p>
+                    ${item.caption ? `<p><strong>Caption:</strong> ${item.caption}</p>` : ''}
+                    <p><strong>Uploaded:</strong> ${new Date(item.created_at).toLocaleDateString()}</p>
+                    <div class="gallery-item-actions">
+                        <button class="delete-btn" onclick="deleteItem(${item.id})">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            return div;
+        }
+
+        async function deleteItem(id) {
+            if (!confirm('Are you sure you want to delete this item?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/admin/gallery/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    showMessageInSection('uploadMessage', 'Item deleted successfully', 'success');
+                    loadGallery();
+                } else {
+                    throw new Error('Delete failed');
+                }
+            } catch (error) {
+                showMessageInSection('uploadMessage', 'Failed to delete item', 'error');
+            }
+        }
+
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
+
+        function showMessageInSection(messageId, text, type) {
+            const message = document.getElementById(messageId);
+            if (!message) return;
+
+            message.textContent = text;
+            message.className = `message ${type}`;
+            message.style.display = 'block';
+
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 5000);
+        }
+
+        // ============================================
+        // AI ASSISTANT CHAT FUNCTIONS
+        // ============================================
+
+        function askSuggestedQuestion(question) {
+            document.getElementById('chatInput').value = question;
+            sendChatMessage();
+        }
+
+        function handleChatKeyPress(event) {
+            // Send message on Enter (without Shift)
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendChatMessage();
+            }
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const sendBtn = document.getElementById('chatSendBtn');
+            const chatMessages = document.getElementById('chatMessages');
+            const question = input.value.trim();
+
+            if (!question) {
+                return;
+            }
+
+            // Disable input while processing
+            input.disabled = true;
+            sendBtn.disabled = true;
+
+            // Add user message to chat
+            addChatMessage('user', question);
+
+            // Clear input
+            input.value = '';
+
+            // Show loading indicator
+            const loadingId = 'loading-' + Date.now();
+            const loadingDiv = document.createElement('div');
+            loadingDiv.id = loadingId;
+            loadingDiv.className = 'chat-loading';
+            loadingDiv.innerHTML = '<div class="spinner"></div><span>Thinking...</span>';
+            chatMessages.appendChild(loadingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const response = await fetch('/api/admin/ai-assistant', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ question })
+                });
+
+                // Remove loading indicator
+                const loadingElement = document.getElementById(loadingId);
+                if (loadingElement) {
+                    loadingElement.remove();
+                }
+
+                if (!response.ok) {
+                    throw new Error('Failed to get AI response');
+                }
+
+                const data = await response.json();
+
+                // Add AI response to chat
+                addChatMessage('assistant', data.answer);
+
+                // If action was executed, handle download or refresh
+                if (data.actionExecuted && data.actionResult) {
+                    if (data.actionResult.downloadUrl) {
+                        // Create download link for reports
+                        const downloadDiv = document.createElement('div');
+                        downloadDiv.className = 'chat-message assistant';
+                        downloadDiv.innerHTML = `
+                            <div class="chat-message-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <div class="chat-message-content">
+                                <p><a href="${data.actionResult.downloadUrl}" download style="color: #4CAF50; text-decoration: underline;">
+                                    📥 Click here to download your ${data.actionResult.reportType} report (CSV)
+                                </a></p>
+                                <div class="chat-message-time">${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</div>
+                            </div>
+                        `;
+                        chatMessages.appendChild(downloadDiv);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }
+
+                    // Refresh data if date was blocked or service was updated
+                    if (data.actionResult.blocked_date || data.actionResult.service) {
+                        loadServices();
+                        loadBookings();
+                    }
+                }
+
+            } catch (error) {
+                console.error('Chat error:', error);
+
+                // Remove loading indicator
+                const loadingElement = document.getElementById(loadingId);
+                if (loadingElement) {
+                    loadingElement.remove();
+                }
+
+                // Add error message
+                addChatMessage('assistant', 'Sorry, I encountered an error processing your question. Please try again.');
+            } finally {
+                // Re-enable input
+                input.disabled = false;
+                sendBtn.disabled = false;
+                input.focus();
+            }
+        }
+
+        function addChatMessage(type, text) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${type}`;
+
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+            messageDiv.innerHTML = `
+                <div class="chat-message-icon">
+                    <i class="fas fa-${type === 'user' ? 'user' : 'robot'}"></i>
+                </div>
+                <div class="chat-message-content">
+                    <p>${escapeHtml(text)}</p>
+                    <div class="chat-message-time">${timeString}</div>
+                </div>
+            `;
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

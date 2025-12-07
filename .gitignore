@@ -1,0 +1,41 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Uploaded files (gallery images)
+gallery/*.jpg
+gallery/*.jpeg
+gallery/*.png
+gallery/*.gif
+gallery/*.webp
+
+# Keep gallery directory but ignore images
+!gallery/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+*~
+
+# Docker volumes
+data/
