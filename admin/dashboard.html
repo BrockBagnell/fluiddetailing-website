@@ -548,7 +548,6 @@
 
         /* Services Management - Modern Table Style */
         .services-table-container {
-            overflow-x: auto;
             border-radius: 8px;
             border: 2px solid #8a8d8f;
             background-color: #0a0a0a;
@@ -557,7 +556,7 @@
         .services-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 600px;
+            table-layout: fixed;
         }
 
         .services-table thead {
@@ -565,15 +564,21 @@
         }
 
         .services-table th {
-            padding: 0.75rem 0.5rem;
+            padding: 0.6rem 0.4rem;
             text-align: left;
             font-weight: bold;
             color: #ffffff;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             border-bottom: 2px solid #8a8d8f;
         }
+
+        .services-table th:nth-child(1) { width: 35%; } /* Service Name */
+        .services-table th:nth-child(2) { width: 18%; } /* Duration */
+        .services-table th:nth-child(3) { width: 18%; } /* Price */
+        .services-table th:nth-child(4) { width: 16%; } /* Status */
+        .services-table th:nth-child(5) { width: 13%; } /* Actions */
 
         .services-table tbody tr {
             border-bottom: 1px solid #8a8d8f;
@@ -590,7 +595,7 @@
         }
 
         .services-table td {
-            padding: 0.6rem 0.5rem;
+            padding: 0.5rem 0.4rem;
         }
 
         .services-table input,
@@ -599,9 +604,9 @@
             background-color: #1a1a1a;
             color: white;
             border: 1px solid #8a8d8f;
-            padding: 0.5rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
+            padding: 0.4rem 0.3rem;
+            border-radius: 3px;
+            font-size: 0.85rem;
         }
 
         .services-table input:focus,
@@ -611,14 +616,15 @@
         }
 
         .services-table button {
-            padding: 0.5rem 0.75rem;
+            padding: 0.4rem 0.3rem;
             border: none;
-            border-radius: 4px;
+            border-radius: 3px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             white-space: nowrap;
+            width: 100%;
         }
 
         .services-table button.delete-btn {
@@ -658,7 +664,6 @@
 
         /* Business Hours - Modern Table Style */
         .hours-table-container {
-            overflow-x: auto;
             border-radius: 8px;
             border: 2px solid #8a8d8f;
             background-color: #0a0a0a;
@@ -667,7 +672,7 @@
         .hours-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 500px;
+            table-layout: fixed;
         }
 
         .hours-table thead {
@@ -675,15 +680,20 @@
         }
 
         .hours-table th {
-            padding: 0.75rem 0.5rem;
+            padding: 0.6rem 0.4rem;
             text-align: left;
             font-weight: bold;
             color: #ffffff;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             border-bottom: 2px solid #8a8d8f;
         }
+
+        .hours-table th:nth-child(1) { width: 22%; } /* Day */
+        .hours-table th:nth-child(2) { width: 15%; text-align: center; } /* Open checkbox */
+        .hours-table th:nth-child(3) { width: 31.5%; } /* Opening Time */
+        .hours-table th:nth-child(4) { width: 31.5%; } /* Closing Time */
 
         .hours-table tbody tr {
             border-bottom: 1px solid #8a8d8f;
@@ -695,13 +705,13 @@
         }
 
         .hours-table td {
-            padding: 0.6rem 0.5rem;
+            padding: 0.5rem 0.4rem;
         }
 
         .hours-table td.day-label {
             font-weight: bold;
             color: #b8b8b8;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         .hours-table input[type="time"] {
@@ -709,9 +719,9 @@
             background-color: #1a1a1a;
             color: white;
             border: 1px solid #8a8d8f;
-            padding: 0.5rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
+            padding: 0.4rem 0.3rem;
+            border-radius: 3px;
+            font-size: 0.85rem;
         }
 
         .hours-table input[type="time"]:focus {
@@ -725,8 +735,8 @@
         }
 
         .hours-table input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             cursor: pointer;
             accent-color: #CC0000;
         }
@@ -931,7 +941,7 @@
             }
 
             .services-actions-top h2 {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .services-button-group {
@@ -943,26 +953,33 @@
             }
 
             .btn-compact {
-                padding: 0.5rem 0.8rem;
-                font-size: 0.85rem;
+                padding: 0.5rem 0.6rem;
+                font-size: 0.8rem;
             }
 
             .services-table th,
             .services-table td {
-                padding: 0.5rem 0.3rem;
-                font-size: 0.8rem;
+                padding: 0.4rem 0.2rem;
+                font-size: 0.7rem;
             }
 
             .services-table input,
             .services-table select {
-                padding: 0.4rem;
-                font-size: 0.85rem;
+                padding: 0.35rem 0.25rem;
+                font-size: 0.75rem;
             }
 
             .services-table button {
-                padding: 0.4rem 0.5rem;
-                font-size: 0.75rem;
+                padding: 0.35rem 0.2rem;
+                font-size: 0.65rem;
             }
+
+            /* Adjust column widths for mobile */
+            .services-table th:nth-child(1) { width: 32%; }
+            .services-table th:nth-child(2) { width: 16%; }
+            .services-table th:nth-child(3) { width: 16%; }
+            .services-table th:nth-child(4) { width: 20%; }
+            .services-table th:nth-child(5) { width: 16%; }
 
             /* Mobile optimization for Business Hours section */
             .hours-actions-top {
@@ -971,28 +988,34 @@
             }
 
             .hours-actions-top h2 {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .hours-table th,
             .hours-table td {
-                padding: 0.5rem 0.3rem;
-                font-size: 0.8rem;
+                padding: 0.4rem 0.2rem;
+                font-size: 0.7rem;
             }
 
             .hours-table td.day-label {
-                font-size: 0.85rem;
+                font-size: 0.75rem;
             }
 
             .hours-table input[type="time"] {
-                padding: 0.4rem;
-                font-size: 0.85rem;
+                padding: 0.35rem 0.2rem;
+                font-size: 0.75rem;
             }
 
             .hours-table input[type="checkbox"] {
-                width: 18px;
-                height: 18px;
+                width: 16px;
+                height: 16px;
             }
+
+            /* Adjust column widths for mobile */
+            .hours-table th:nth-child(1) { width: 20%; }
+            .hours-table th:nth-child(2) { width: 12%; }
+            .hours-table th:nth-child(3) { width: 34%; }
+            .hours-table th:nth-child(4) { width: 34%; }
 
             /* Reduce dashboard section padding on mobile */
             .dashboard-section {
@@ -1153,11 +1176,11 @@
                     <table class="services-table">
                         <thead>
                             <tr>
-                                <th>Service Name</th>
-                                <th>Duration (min)</th>
-                                <th>Price ($)</th>
+                                <th>Name</th>
+                                <th>Duration</th>
+                                <th>Price</th>
                                 <th>Status</th>
-                                <th>Actions</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="servicesTableBody">
@@ -1186,8 +1209,8 @@
                             <tr>
                                 <th>Day</th>
                                 <th style="text-align: center;">Open</th>
-                                <th>Opening Time</th>
-                                <th>Closing Time</th>
+                                <th>Opens</th>
+                                <th>Closes</th>
                             </tr>
                         </thead>
                         <tbody id="hoursTableBody">
