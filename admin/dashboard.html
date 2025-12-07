@@ -546,86 +546,207 @@
             opacity: 0.8;
         }
 
-        /* Services Management */
-        .services-management {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .service-row {
-            background-color: #0a0a0a;
-            border: 1px solid #8a8d8f;
+        /* Services Management - Modern Table Style */
+        .services-table-container {
+            overflow-x: auto;
             border-radius: 8px;
-            padding: 1rem;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 100px 100px;
-            gap: 1rem;
-            align-items: center;
+            border: 2px solid #8a8d8f;
+            background-color: #0a0a0a;
         }
 
-        .service-row.new-service {
-            border-color: #4CAF50;
-            background-color: rgba(76, 175, 80, 0.05);
+        .services-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
         }
 
-        .service-row input,
-        .service-row select {
+        .services-table thead {
+            background-color: #CC0000;
+        }
+
+        .services-table th {
+            padding: 0.75rem 0.5rem;
+            text-align: left;
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #8a8d8f;
+        }
+
+        .services-table tbody tr {
+            border-bottom: 1px solid #8a8d8f;
+            transition: all 0.3s;
+        }
+
+        .services-table tbody tr:hover {
+            background-color: rgba(204, 0, 0, 0.05);
+        }
+
+        .services-table tbody tr.new-service {
+            background-color: rgba(76, 175, 80, 0.1);
+            border: 2px solid #4CAF50;
+        }
+
+        .services-table td {
+            padding: 0.6rem 0.5rem;
+        }
+
+        .services-table input,
+        .services-table select {
+            width: 100%;
             background-color: #1a1a1a;
             color: white;
             border: 1px solid #8a8d8f;
             padding: 0.5rem;
             border-radius: 4px;
+            font-size: 0.9rem;
         }
 
-        .service-row button {
-            padding: 0.5rem 1rem;
+        .services-table input:focus,
+        .services-table select:focus {
+            outline: none;
+            border-color: #CC0000;
+        }
+
+        .services-table button {
+            padding: 0.5rem 0.75rem;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
+            font-size: 0.85rem;
+            white-space: nowrap;
         }
 
-        .service-row button.save {
-            background-color: #4CAF50;
+        .services-table button.delete-btn {
+            background-color: #CC0000;
             color: white;
         }
 
-        /* Business Hours */
-        .business-hours-grid {
-            display: grid;
-            gap: 1rem;
+        .services-table button.delete-btn:hover {
+            background-color: #a30000;
         }
 
-        .hours-row {
-            background-color: #0a0a0a;
-            border: 1px solid #8a8d8f;
-            border-radius: 8px;
-            padding: 1rem;
-            display: grid;
-            grid-template-columns: 150px 100px 150px 150px;
-            gap: 1rem;
+        .services-actions-top {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
+            margin-bottom: 1rem;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
-        .hours-row label {
+        .services-actions-top h2 {
+            margin: 0 !important;
+            font-size: 1.5rem;
+        }
+
+        .services-button-group {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-compact {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        /* Business Hours - Modern Table Style */
+        .hours-table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 2px solid #8a8d8f;
+            background-color: #0a0a0a;
+        }
+
+        .hours-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+
+        .hours-table thead {
+            background-color: #CC0000;
+        }
+
+        .hours-table th {
+            padding: 0.75rem 0.5rem;
+            text-align: left;
             font-weight: bold;
-            color: #CC0000;
+            color: #ffffff;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #8a8d8f;
         }
 
-        .hours-row input[type="time"],
-        .hours-row input[type="checkbox"] {
+        .hours-table tbody tr {
+            border-bottom: 1px solid #8a8d8f;
+            transition: all 0.3s;
+        }
+
+        .hours-table tbody tr:hover {
+            background-color: rgba(204, 0, 0, 0.05);
+        }
+
+        .hours-table td {
+            padding: 0.6rem 0.5rem;
+        }
+
+        .hours-table td.day-label {
+            font-weight: bold;
+            color: #b8b8b8;
+            font-size: 0.95rem;
+        }
+
+        .hours-table input[type="time"] {
+            width: 100%;
             background-color: #1a1a1a;
             color: white;
             border: 1px solid #8a8d8f;
             padding: 0.5rem;
             border-radius: 4px;
+            font-size: 0.9rem;
         }
 
-        .hours-row input[type="checkbox"] {
+        .hours-table input[type="time"]:focus {
+            outline: none;
+            border-color: #CC0000;
+        }
+
+        .hours-table input[type="time"]:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .hours-table input[type="checkbox"] {
             width: 20px;
             height: 20px;
             cursor: pointer;
+            accent-color: #CC0000;
+        }
+
+        .hours-checkbox-cell {
+            text-align: center;
+        }
+
+        .hours-actions-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hours-actions-top h2 {
+            margin: 0 !important;
+            font-size: 1.5rem;
         }
 
         /* Hide sections */
@@ -791,14 +912,6 @@
                 grid-template-columns: 1fr;
             }
 
-            .service-row {
-                grid-template-columns: 1fr;
-            }
-
-            .hours-row {
-                grid-template-columns: 1fr 1fr;
-            }
-
             .chat-container {
                 height: 500px;
             }
@@ -809,6 +922,95 @@
 
             .suggested-questions {
                 flex-direction: column;
+            }
+
+            /* Mobile optimization for Services section */
+            .services-actions-top {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .services-actions-top h2 {
+                font-size: 1.2rem;
+            }
+
+            .services-button-group {
+                justify-content: stretch;
+            }
+
+            .services-button-group button {
+                flex: 1;
+            }
+
+            .btn-compact {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .services-table th,
+            .services-table td {
+                padding: 0.5rem 0.3rem;
+                font-size: 0.8rem;
+            }
+
+            .services-table input,
+            .services-table select {
+                padding: 0.4rem;
+                font-size: 0.85rem;
+            }
+
+            .services-table button {
+                padding: 0.4rem 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            /* Mobile optimization for Business Hours section */
+            .hours-actions-top {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .hours-actions-top h2 {
+                font-size: 1.2rem;
+            }
+
+            .hours-table th,
+            .hours-table td {
+                padding: 0.5rem 0.3rem;
+                font-size: 0.8rem;
+            }
+
+            .hours-table td.day-label {
+                font-size: 0.85rem;
+            }
+
+            .hours-table input[type="time"] {
+                padding: 0.4rem;
+                font-size: 0.85rem;
+            }
+
+            .hours-table input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+            }
+
+            /* Reduce dashboard section padding on mobile */
+            .dashboard-section {
+                padding: 1rem;
+            }
+
+            .dashboard-section h2 {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+
+            .container {
+                padding: 0.75rem;
+            }
+
+            .upload-btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -933,30 +1135,35 @@
         <!-- Manage Services Section -->
         <div id="manageServicesSection" class="hidden">
             <div class="dashboard-section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h2 style="margin: 0;"><i class="fas fa-cogs"></i> Manage Services</h2>
-                    <div style="display: flex; gap: 1rem;">
-                        <button class="upload-btn" onclick="addNewService()" style="width: auto; padding: 0.8rem 2rem; background-color: #4CAF50; border-color: #4CAF50;">
+                <div class="services-actions-top">
+                    <h2><i class="fas fa-cogs"></i> Manage Services</h2>
+                    <div class="services-button-group">
+                        <button class="upload-btn btn-compact" onclick="addNewService()" style="background-color: #4CAF50; border-color: #4CAF50;">
                             <i class="fas fa-plus"></i> Add Service
                         </button>
-                        <button class="upload-btn" onclick="syncAllServices()" style="width: auto; padding: 0.8rem 2rem;">
-                            <i class="fas fa-sync-alt"></i> Sync All Changes
+                        <button class="upload-btn btn-compact" onclick="syncAllServices()">
+                            <i class="fas fa-sync-alt"></i> Sync All
                         </button>
                     </div>
                 </div>
 
                 <div id="servicesMessage" class="message"></div>
 
-                <div class="service-row" style="background-color: #CC0000; font-weight: bold; margin-bottom: 0.5rem;">
-                    <div>Service Name</div>
-                    <div>Duration (min)</div>
-                    <div>Price ($)</div>
-                    <div>Status</div>
-                    <div>Actions</div>
-                </div>
-
-                <div id="servicesGrid" class="services-management">
-                    <!-- Services will be loaded here -->
+                <div class="services-table-container">
+                    <table class="services-table">
+                        <thead>
+                            <tr>
+                                <th>Service Name</th>
+                                <th>Duration (min)</th>
+                                <th>Price ($)</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="servicesTableBody">
+                            <!-- Services will be loaded here -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -964,17 +1171,29 @@
         <!-- Business Hours Section -->
         <div id="businessHoursSection" class="hidden">
             <div class="dashboard-section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h2 style="margin: 0;"><i class="fas fa-clock"></i> Business Hours</h2>
-                    <button class="upload-btn" onclick="syncAllBusinessHours()" style="width: auto; padding: 0.8rem 2rem;">
-                        <i class="fas fa-sync-alt"></i> Sync All Changes
+                <div class="hours-actions-top">
+                    <h2><i class="fas fa-clock"></i> Business Hours</h2>
+                    <button class="upload-btn btn-compact" onclick="syncAllBusinessHours()">
+                        <i class="fas fa-sync-alt"></i> Sync All
                     </button>
                 </div>
 
                 <div id="hoursMessage" class="message"></div>
 
-                <div id="businessHoursGrid" class="business-hours-grid">
-                    <!-- Business hours will be loaded here -->
+                <div class="hours-table-container">
+                    <table class="hours-table">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th style="text-align: center;">Open</th>
+                                <th>Opening Time</th>
+                                <th>Closing Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hoursTableBody">
+                            <!-- Business hours will be loaded here -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -1318,44 +1537,52 @@
         let newServiceCounter = 0;
 
         function renderServices(services) {
-            const grid = document.getElementById('servicesGrid');
-            grid.innerHTML = services.map(service => `
-                <div class="service-row" data-service-id="${service.id}">
-                    <input type="text" value="${service.name}" id="name-${service.id}" placeholder="Service Name">
-                    <input type="number" value="${service.duration_minutes}" id="duration-${service.id}" placeholder="Duration (min)">
-                    <input type="number" step="0.01" value="${service.price || ''}" id="price-${service.id}" placeholder="Price">
-                    <select id="active-${service.id}">
-                        <option value="true" ${service.is_active ? 'selected' : ''}>Active</option>
-                        <option value="false" ${!service.is_active ? 'selected' : ''}>Inactive</option>
-                    </select>
-                    <button class="delete-btn" onclick="deleteService(${service.id})">
-                        <i class="fas fa-trash"></i> Delete
-                    </button>
-                </div>
+            const tbody = document.getElementById('servicesTableBody');
+            tbody.innerHTML = services.map(service => `
+                <tr data-service-id="${service.id}">
+                    <td><input type="text" value="${service.name}" id="name-${service.id}" placeholder="Service Name"></td>
+                    <td><input type="number" value="${service.duration_minutes}" id="duration-${service.id}" placeholder="Duration"></td>
+                    <td><input type="number" step="0.01" value="${service.price || ''}" id="price-${service.id}" placeholder="Price"></td>
+                    <td>
+                        <select id="active-${service.id}">
+                            <option value="true" ${service.is_active ? 'selected' : ''}>Active</option>
+                            <option value="false" ${!service.is_active ? 'selected' : ''}>Inactive</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="delete-btn" onclick="deleteService(${service.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
             `).join('');
         }
 
         function addNewService() {
-            const grid = document.getElementById('servicesGrid');
+            const tbody = document.getElementById('servicesTableBody');
             const tempId = `new-${newServiceCounter++}`;
 
-            const newServiceRow = document.createElement('div');
-            newServiceRow.className = 'service-row new-service';
+            const newServiceRow = document.createElement('tr');
+            newServiceRow.className = 'new-service';
             newServiceRow.setAttribute('data-new-service-id', tempId);
             newServiceRow.innerHTML = `
-                <input type="text" id="name-${tempId}" placeholder="New Service Name" required>
-                <input type="number" id="duration-${tempId}" placeholder="Duration (min)" value="60" required>
-                <input type="number" step="0.01" id="price-${tempId}" placeholder="Price" value="0">
-                <select id="active-${tempId}">
-                    <option value="true" selected>Active</option>
-                    <option value="false">Inactive</option>
-                </select>
-                <button class="delete-btn" onclick="removeNewService('${tempId}')">
-                    <i class="fas fa-times"></i> Cancel
-                </button>
+                <td><input type="text" id="name-${tempId}" placeholder="New Service Name" required></td>
+                <td><input type="number" id="duration-${tempId}" placeholder="60" value="60" required></td>
+                <td><input type="number" step="0.01" id="price-${tempId}" placeholder="0" value="0"></td>
+                <td>
+                    <select id="active-${tempId}">
+                        <option value="true" selected>Active</option>
+                        <option value="false">Inactive</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="delete-btn" onclick="removeNewService('${tempId}')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </td>
             `;
 
-            grid.insertBefore(newServiceRow, grid.firstChild);
+            tbody.insertBefore(newServiceRow, tbody.firstChild);
         }
 
         function removeNewService(tempId) {
@@ -1383,8 +1610,8 @@
         }
 
         async function syncAllServices() {
-            const existingRows = document.querySelectorAll('.service-row[data-service-id]');
-            const newRows = document.querySelectorAll('.service-row[data-new-service-id]');
+            const existingRows = document.querySelectorAll('tr[data-service-id]');
+            const newRows = document.querySelectorAll('tr[data-new-service-id]');
             const updates = [];
 
             // Update existing services
@@ -1463,18 +1690,24 @@
 
         function renderBusinessHours(hours) {
             const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const grid = document.getElementById('businessHoursGrid');
+            const tbody = document.getElementById('hoursTableBody');
 
-            grid.innerHTML = hours.map(hour => `
-                <div class="hours-row" data-day="${hour.day_of_week}">
-                    <label>${days[hour.day_of_week]}</label>
-                    <input type="checkbox" id="open-${hour.day_of_week}" ${hour.is_open ? 'checked' : ''}
-                           onchange="toggleDay(${hour.day_of_week})">
-                    <input type="time" id="open-time-${hour.day_of_week}" value="${hour.open_time || '09:00'}"
-                           ${!hour.is_open ? 'disabled' : ''}>
-                    <input type="time" id="close-time-${hour.day_of_week}" value="${hour.close_time || '17:00'}"
-                           ${!hour.is_open ? 'disabled' : ''}>
-                </div>
+            tbody.innerHTML = hours.map(hour => `
+                <tr data-day="${hour.day_of_week}">
+                    <td class="day-label">${days[hour.day_of_week]}</td>
+                    <td class="hours-checkbox-cell">
+                        <input type="checkbox" id="open-${hour.day_of_week}" ${hour.is_open ? 'checked' : ''}
+                               onchange="toggleDay(${hour.day_of_week})">
+                    </td>
+                    <td>
+                        <input type="time" id="open-time-${hour.day_of_week}" value="${hour.open_time || '09:00'}"
+                               ${!hour.is_open ? 'disabled' : ''}>
+                    </td>
+                    <td>
+                        <input type="time" id="close-time-${hour.day_of_week}" value="${hour.close_time || '17:00'}"
+                               ${!hour.is_open ? 'disabled' : ''}>
+                    </td>
+                </tr>
             `).join('');
         }
 
@@ -1485,7 +1718,7 @@
         }
 
         async function syncAllBusinessHours() {
-            const hoursRows = document.querySelectorAll('.hours-row[data-day]');
+            const hoursRows = document.querySelectorAll('tr[data-day]');
             const updates = [];
 
             for (const row of hoursRows) {
