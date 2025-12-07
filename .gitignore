@@ -37,5 +37,9 @@ Thumbs.db
 *.backup
 *~
 
+# Session files (may contain sensitive info)
+SESSION*.md
+*session*.md
+
 # Docker volumes
 data/
