@@ -29,6 +29,11 @@
             line-height: 1.6;
         }
 
+        /* Premium Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
         /* Navigation */
         nav {
             background-color: var(--nismo-black);
@@ -72,11 +77,29 @@
             text-decoration: none;
             text-transform: uppercase;
             font-size: 0.9rem;
-            transition: color 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--nismo-red);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
         }
 
         nav a:hover {
             color: var(--nismo-red);
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         nav a.book-link {
@@ -117,14 +140,44 @@
             text-transform: uppercase;
             font-weight: bold;
             border-radius: 3px;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: 2px solid var(--nismo-red);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3),
+                        0 1px 3px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .cta-button:hover {
             background-color: transparent;
             color: var(--nismo-red);
             border-color: var(--nismo-red);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(204, 0, 0, 0.4),
+                        0 3px 6px rgba(204, 0, 0, 0.3);
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(204, 0, 0, 0.3);
         }
 
         /* Services Section */
@@ -153,19 +206,46 @@
             background-color: var(--nismo-dark-grey);
             padding: 2rem;
             border: 1px solid var(--nismo-silver);
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2),
+                        0 1px 2px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--nismo-red), transparent);
+            opacity: 0;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .service-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             border-color: var(--nismo-red);
-            box-shadow: 0 5px 20px rgba(204, 0, 0, 0.3);
+            box-shadow: 0 8px 24px rgba(204, 0, 0, 0.4),
+                        0 4px 12px rgba(204, 0, 0, 0.2),
+                        0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
         }
 
         .service-card i {
             font-size: 2.5rem;
             color: var(--nismo-red);
             margin-bottom: 1rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+
+        .service-card:hover i {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .service-card h3 {
@@ -236,11 +316,16 @@
             position: relative;
             cursor: pointer;
             border: 1px solid var(--nismo-silver);
-            transition: border-color 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .gallery-item:hover {
             border-color: var(--nismo-red);
+            transform: scale(1.03);
+            box-shadow: 0 6px 16px rgba(204, 0, 0, 0.3),
+                        0 3px 8px rgba(0, 0, 0, 0.3);
+            z-index: 1;
         }
 
         .gallery-item::after {
@@ -289,8 +374,18 @@
             border: 1px solid var(--nismo-silver);
             color: var(--pure-white);
             font-family: inherit;
-            transition: border-color 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 1rem;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--nismo-red);
+            box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.1),
+                        inset 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         .form-group select {

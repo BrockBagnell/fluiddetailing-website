@@ -18,6 +18,11 @@
             color: #ffffff;
         }
 
+        /* Premium Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
         /* Header */
         .dashboard-header {
             background-color: #1a1a1a;
@@ -36,18 +41,25 @@
         .logout-btn {
             background-color: #CC0000;
             color: #ffffff;
-            border: none;
+            border: 2px solid #CC0000;
             padding: 0.6rem 1.5rem;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(204, 0, 0, 0.3);
         }
 
         .logout-btn:hover {
             background-color: transparent;
-            border: 2px solid #CC0000;
             color: #CC0000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(204, 0, 0, 0.4);
+        }
+
+        .logout-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(204, 0, 0, 0.3);
         }
 
         /* Main Container */
@@ -83,6 +95,14 @@
             border-radius: 10px;
             padding: 2rem;
             margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3),
+                        0 1px 3px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dashboard-section:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4),
+                        0 2px 6px rgba(0, 0, 0, 0.3);
         }
 
         .dashboard-section h2 {
@@ -192,19 +212,44 @@
             padding: 3rem 2rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             color: #ffffff;
             text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2),
+                        0 1px 3px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(204, 0, 0, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-button:hover::before {
+            left: 100%;
         }
 
         .nav-button:hover {
             border-color: #CC0000;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(204, 0, 0, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 36px rgba(204, 0, 0, 0.4),
+                        0 6px 18px rgba(204, 0, 0, 0.2);
+        }
+
+        .nav-button:active {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 18px rgba(204, 0, 0, 0.3);
         }
 
         .nav-button i {
@@ -313,12 +358,16 @@
             border-radius: 5px;
             color: #ffffff;
             font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
             border-color: #CC0000;
+            box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.1),
+                        inset 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         .upload-btn {
@@ -330,17 +379,29 @@
             font-weight: bold;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(204, 0, 0, 0.3),
+                        0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .upload-btn:hover {
             background-color: transparent;
             color: #CC0000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(204, 0, 0, 0.4),
+                        0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .upload-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(204, 0, 0, 0.3);
         }
 
         .upload-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         /* Gallery Grid */
@@ -613,6 +674,7 @@
         .services-table select:focus {
             outline: none;
             border-color: #CC0000;
+            box-shadow: 0 0 0 2px rgba(204, 0, 0, 0.1);
         }
 
         .services-table button {
@@ -727,6 +789,7 @@
         .hours-table input[type="time"]:focus {
             outline: none;
             border-color: #CC0000;
+            box-shadow: 0 0 0 2px rgba(204, 0, 0, 0.1);
         }
 
         .hours-table input[type="time"]:disabled {
